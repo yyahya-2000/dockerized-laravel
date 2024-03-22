@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProxyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::controller(ProxyController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::post('/proxy/check', 'checkProxies')->name('proxy.check');
+    Route::get('/proxy/check/progress', 'showProgress')->name('checking.progress');
 });
