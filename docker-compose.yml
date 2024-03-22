@@ -43,6 +43,16 @@ services:
             - ./docker-compose/nginx:/etc/nginx/conf.d/
         networks:
             - dockerized-laravel-max
+    redis:
+        image: redis:alpine
+        container_name: dockerized-laravel-max-ltd-redis
+        command: redis-server --appendonly yes --requirepass "${REDIS_PASSWORD}"
+        volumes:
+            - ./data/redis:/data
+        ports:
+            - "6382:6379"
+        networks:
+            - dockerized-laravel-max
 networks:
   dockerized-laravel-max:
       driver: bridge
